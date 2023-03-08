@@ -34,6 +34,13 @@ const data = [
 
 ]
 
+var Scale = d3.scaleLinear()
+    .domain([0, d3.max(data, function(d) { return d[0]; })])
+    .range([0, 1000]);
+
+var yScale = d3.scaleLinear()
+    .domain([0, d3.max(data, function(d) { return d[1]; })])
+    .range([0, 1000]);
 
 const svg = d3.select("body")
     .append("svg")
@@ -66,4 +73,13 @@ svg.selectAll("text")
     .attr("x", function(d) {return d.x+10})
     .attr("y", function(d) {return d.y+4})
     .text(function(d) {return d.city})
-    .attr("font-size", "11px")
+    .attr("font-size", "11px");
+
+
+
+let axisLeft = d3.axisLeft(yScale);
+let axisBottom = d3.axisBottom(Scale);
+
+d3.select('#left').call(axisLeft);
+d3.select('#bottom').call(axisBottom)
+
